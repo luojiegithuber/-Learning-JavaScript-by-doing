@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>事件委托</title>
+
+</head>
+<body>
+
+<div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+</div>
+
+</body>
+<script>
+var ul = document.querySelector("ul");
+
+/*ul.onclick = function(e){
+    var e = e || window.event;
+    console.log(e)//鼠标点击就是mouseEvent
+    var target = e.target || e.srcElement;
+    console.log(target)//标签位置
+    if(target.nodeName.toLowerCase() === "li"){
+        alert("li");
+    }
+}*/
+
+ul.addEventListener('click',function(e){
+    var e = e || window.event;//鼠标点击事件
+    var target = e.target || e.srcElement//点到的标签
+
+    var li_arr=this.querySelectorAll("li")//this指的是ul
+    console.log(li_arr)
+    var index=Array.prototype.indexOf.call(li_arr,target)
+    //因为querySelectorAll方法获取到的元素列表不是数组，和函数的arguments一样是一种类数组类型，不可以直接使用数组的方法。
+    console.log("下标是："+index)
+    console.log("内容是："+target.innerHTML)
+ })
+</script>
+</html>

@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>自己实现Vue双向绑定</title>
+
+<style>
+
+
+
+
+
+</style>
+
+
+</head>
+<body>
+
+
+
+</body>
+<script>
+//Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。
+
+//定义一个数据对象
+var phone1= {
+   brand:'小米',
+   price:2999
+}
+
+//直接访问属性
+console.log(phone1.price)
+
+
+//但是，当这个phone的属性被读取或修改时，我们并不知情。那么应该如何做才能够让phone主动告诉我们，它的属性被修改了呢？
+
+let phone2 = {}
+let val = 2999
+Object.defineProperty(phone2, 'price', {
+  get(){
+       console.log('price属性被读取了')
+       return val
+    },
+  set(newVal){
+       console.log('price属性被修改了')
+       val = newVal
+    }
+ })
+//通过Object.defineProperty()方法给phone2定义了一个price属性，并把这个属性的读和写分别使用get()和set()进行拦截，每当该属性进行读或写操作的时候就会触发get()和set()
+
+//数据对象已经是“可观测”的了——针对这个属性
+//为了把car的所有属性都变得可观测，我们可以编写如下两个函数：
+
+
+
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JS代码的测试</title>
+
+<script>
+
+
+
+//父类  
+function Father(name){
+  this.name=name
+}
+//构造函数的原型实例添加了属性：岁数
+Father.prototype.age=30
+
+
+//实现继承
+//1.利用原型链
+function Sun1(name){
+   this.name=name
+}
+Sun1.prototype=new Father()
+//原型链继承：子类的原型实例是父类的实例
+
+var sun1=new Sun1("李雷")
+var daughter1=new Sun1("韩梅梅")
+
+console.log(daughter1.name)//韩梅梅
+
+console.log(sun1 instanceof Father)//true
+console.log(sun1 instanceof Sun1)//true
+
+//也有一定的问题就是：新实例共享父类实例属性，新的实例也无法向父类构造函数传参
+
+
+
+//2.利用call函数——调用父类构造，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用
+function Sun2(name){
+  Father.call(this,name)//借用父类构造函数,可以传参
+  //this.name=name
+}
+
+Sun2.prototype=new Father()
+
+var sun2=new Sun2("bbb")
+console.log(sun2.name)
+console.log(sun2 instanceof Father)//true
+console.log(sun2 instanceof Sun2)//true
+
+
+console.log(Sun2.prototype instanceof Father)//true
+//不用instanceof判断子类是否是父类的子类
+console.log(Sun2.prototype.constructor==Father)//true
+
+
+</script>
+
+<style>
+
+ 
+
+</style>
+</head>
+<body>
+  <div>
+  </div>
+
+</body>
+</html>

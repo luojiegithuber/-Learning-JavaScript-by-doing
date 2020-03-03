@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Map和Set</title>
+
+</head>
+<body>
+
+</body>
+<script>
+
+//1.Map 对象
+//Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。
+
+//Maps和Objects的区别大约了解一下
+
+var myMap = new Map();
+myMap.set(0, "zero");
+myMap.set(1, "one");
+
+let obj={}
+myMap.set(obj,"键是一个对象")
+
+console.log(myMap.get(obj))//键是一个对象
+console.log(myMap.get({}))//undefined  因为obj !== {}
+
+
+//map的迭代
+
+//利用 for...of
+for (var [key, value] of myMap) {
+  console.log(key + " = " + value);
+}
+
+//利用forEach
+myMap.forEach(function(value, key) {
+  console.log(key + " = " + value);
+}, myMap)
+
+var kvArray = [["key1", "value1"], ["key2", "value2"]];
+ 
+//Map 构造函数可以将一个 二维 键值对数组转换成一个 Map 对象
+var myMapFromArray = new Map(kvArray);
+
+// 使用 Array.from 函数可以将一个 Map 对象转换成一个二维键值对数组
+var outArray = Array.from(myMapFromArray);
+
+
+
+//2.Set对象 允许你存储任何类型的唯一值，无论是原始值或者是对象引用
+//
+
+let mySet = new Set();
+ 
+mySet.add(1); // Set(1) {1}
+mySet.add(5); // Set(2) {1, 5}
+mySet.add(5); // Set(2) {1, 5} 这里体现了值的唯一性
+
+// Array 转 Set
+var mySet2 = new Set(["value1", "value2", "value3"]);
+// 用...操作符，将 Set 转 Array
+var myArray = [...mySet2];
+
+
+//数组去重也可以用Set
+Repeat_arr=[1,1,2,2,3,4,5]
+console.log( new Set(Repeat_arr))//1 2 3 4 5
+
+arr=Repeat_arr.filter(function(value,index,arr){
+   return arr.indexOf(value)==index
+
+})
+console.log(arr)
+
+</script>
+</html>

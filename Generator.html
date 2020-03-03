@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Promise,Generator函数，async函数区别与理解</title>
+
+</head>
+<body>
+
+</body>
+<script>
+//ES6 新引入了 Generator 函数，可以通过 yield 关键字，把函数的执行流挂起，为改变执行流程提供了可能，从而为异步编程提供解决方案。
+
+
+//Generator 有两个区分于普通函数的部分：
+//1.是在 function 后面，函数名之前有个 * ；
+//2.函数内部有 yield 表达式。
+
+function* func(){
+ console.log("one");
+ yield '1';
+
+ console.log("two");
+ yield '2'; 
+
+ console.log("three");
+ return '3';
+}
+
+
+ func()//屁都没输出
+
+ //调用 Generator 函数和调用普通函数一样，在函数名后面加上()即可，但是 Generator 函数不会像普通函数一样立即执行，而是返回一个指向内部状态对象的指针，所以要调用遍历器对象Iterator 的 next 方法，指针就会从函数头部或者上一次停下来的地方开始执行。
+var f=func()
+f.next()//one
+f.next()//twe
+f.next()//three
+f.next()//屁都没输出
+
+//一般情况下，next 方法不传入参数的时候，yield 表达式的返回值是 undefined 。当 next 传入参数的时候，该参数会作为上一步yield的返回值。
+//
+function* sendParameter(){
+    console.log("strat");
+    var x = yield '2';
+    console.log("one:" + x);
+    var y = yield '3';
+    console.log("two:" + y);
+    console.log("total:" + (x + y));
+}
+
+var sendp2 = sendParameter();
+sendp2.next(10);
+// strat
+sendp2.next(20);
+// one:20
+sendp2.next(30);
+// two:30
+// total:50
+// 
+
+
+
+
+//async 函数
+//async 函数返回一个 Promise 对象，可以使用 then 方法添加回调函数。
+async function helloAsync(){
+    return "helloAsync";
+  }
+  
+console.log(helloAsync())  // Promise {<resolved>: "helloAsync"}
+ 
+helloAsync().then(v=>{
+   console.log(v);         // helloAsync
+})
+
+//async 函数中可能会有 await 表达式，async 函数执行时，如果遇到 await 就会先暂停执行 ，等到触发的异步操作完成后，恢复 async 函数的执行并返回解析值。await 关键字仅在 async function 中有效。如果在 async function 函数体外使用 await ，你只会得到一个语法错误。
+
+//await 操作符用于等待一个 Promise 对象, 它只能在异步函数 async function 内部使用。
+
+//await针对所跟不同表达式的处理方式：
+//Promise 对象：await 会暂停执行，等待 Promise 对象 resolve，然后恢复 async 函数的执行并返回解析值。
+//非 Promise 对象：直接返回对应的值。
+
+function testAwait(){
+   return new Promise((resolve) => {
+       setTimeout(function(){
+          console.log("测试Await");
+          resolve();
+       }, 1000);
+   });
+}
+ 
+async function helloAsync2(){
+   await testAwait();//等待一个Promise对象
+   console.log("helloAsync2");
+ }
+helloAsync2();
+// testAwait
+// helloAsync2
+
+</script>
+</html>

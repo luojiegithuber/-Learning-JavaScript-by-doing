@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+
+<style>
+
+
+
+
+</style>
+
+
+</head>
+<body>
+
+
+
+</body>
+<script>
+
+var num=285
+function fun(num){
+   if(num<10)return 1
+
+   let count=1
+   
+   while(true){
+
+   let str=num.toString()
+   let str_num=str.split('')
+   let sum=1
+
+   
+     for(let i=0;i<str_num.length;i++){
+        sum=Number(str_num[i])*sum
+     }//for
+
+     if(sum>=10){count++;num=sum}
+     else{
+        break;
+     }
+
+   }//while
+   return count
+}
+
+console.log(fun(2000000000))
+
+//设立一个二维数组保存的伙伴
+var arr=new Array()
+for(let i=1;i<10;i++){
+	arr[i]=new Array()
+}
+//初始化表格
+for(let num=11;num<100;num++){
+	if(isZhishu(num)){
+       let arr_str=num.toString().split('')//分割成两个数
+       arr[Number(arr_str[0])].push(Number(arr_str[1]))
+       arr[Number(arr_str[1])].push(Number(arr_str[0]))
+	}
+}   
+
+//判断是不是质数
+   function isZhishu(number){
+     for(let i=2;i<=number/2;i++){
+        if(number%i==0)return false   
+     }
+     return true
+   }
+
+
+var count=0//计数器
+function computeShenqi(left,right){
+   for(let n=left;n<=right;n++){
+   	  
+      if(isShenqi(n)){count++}
+   }
+}
+
+//判断是否是神奇数字
+function isShenqi(number){
+	let str_arr=number.toString().split('')
+    for(let i=0;i<str_arr.length;i++){
+        let index=Number(str_arr[i])//开始找伙伴
+        if(index!=0){
+           for(let j=i+1;j<str_arr.length;j++){
+                
+           	  if(arr[index].indexOf(Number(str_arr[j]))>=0)return true
+           }}
+    }
+    return false
+} 
+
+computeShenqi(100,5000)
+console.log(count)
+
+
+
+
+
+</script>
+</html>

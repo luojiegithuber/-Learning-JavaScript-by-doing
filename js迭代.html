@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>js数组迭代方法</title>
+
+<style>
+
+
+
+
+</style>
+
+
+</head>
+<body>
+
+
+
+</body>
+<script>
+//forEach() 方法为每个数组元素调用一次函数（回调函数）。
+var numbers = [1, 2, 3, 4, 5];
+numbers.forEach(fun1);
+function fun1(value, index, array) {
+  console.log("arr["+index+"]:"+value)
+}
+
+
+//Array.map()
+/*map() 方法通过对每个数组元素执行函数来创建新数组。
+map() 方法不会对没有值的数组元素执行函数。
+map() 方法不会更改原始数组。*/
+function fun2(value, index, array){
+	return value**2
+}
+var arr2=numbers.map(fun2)
+console.log(arr2)//1,4,9,16,25
+
+//filter() 方法创建一个包含通过测试的数组元素的新数组。
+//经典的数组去重
+function fun3(value, index, array){
+	return array.indexOf(value)==index;
+}
+var nums=[1,1,2,2,3,3,3,5,5]
+var arr3=numbers.filter(fun3)
+console.log(arr3)
+
+
+
+</script>
+</html>

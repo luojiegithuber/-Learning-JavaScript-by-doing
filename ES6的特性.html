@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ES6的特性</title>
+
+
+
+<style>
+
+ 
+
+</style>
+</head>
+<body>
+
+</body>
+
+<script>
+
+//箭头函数************
+
+let fn=v=>v*2;
+//等同于let fn=function(v){
+//    return v;
+//}
+//
+// 如果只有一条语句，可以将{}和return省略掉
+
+console.log(fn(2));//4
+
+
+// 如果语句为多条，则不可以省略{}和return
+let fn2=x=>{
+    let sum=0;
+    for(let i=0;i<=x;i++){
+    	sum+=i;
+    }
+    return sum;
+}
+
+console.log(fn2(10));//55
+
+//当没有参数或有多个参数时，需要用括号（）括起来:
+
+let fn3=(x,y)=>x+y;
+console.log(fn3(2,3));//5
+
+
+// 当省略{}和return时，如果返回的内容是一个对象，对象需要用括号（）括起
+let fn4=(x)=>({name:x});
+console.log(fn4("luojie"));//{name: "luojie"}
+
+// 箭头函数不能用于构造函数
+// 
+//····正常情况
+var Box=function(age){
+    this.myAge=age;
+}
+var obj=new Box(20);
+console.log(obj.myAge);//20
+ 
+//····箭头函数
+var Box=age=>{
+    this.myAge=age;
+}
+//var obj=new Box(20);//报错：Box is not a constructor
+//console.log(obj.myAge);
+
+//箭头函数没有prototype属性
+var Foo = () => {};
+console.log(Foo.prototype); // undefined
+
+//箭头函数不绑定this，箭头函数体内的 this，继承的是外层代码块的 this。
+
+window.color = "red";
+//let 声明的全局变量不具有全局属性，即不能用window.访问
+let color = "green";
+let obj2 = {
+color: "blue",
+getColor: () => {
+return this.color;//this指向window
+}
+};
+let sayColor = () => {
+return this.color;//this指向window
+};
+obj2.getColor();//red
+sayColor();//red
+
+
+var num = 1;
+var myObject = {
+  num: 2,
+  add: function() {
+    this.num = 3;
+    (function() {
+      console.log("第1个出现的console：" + this.num);
+      this.num = 4;
+    })();//箭头函数
+    console.log("第2个出现的console：" + this.num);
+  },
+  sub: function() {
+  	console.log(this);//window
+    console.log("第3个出现的console：" + this.num);
+  }
+};
+
+myObject.add();
+console.log("第4个出现的console：" + myObject.num);
+console.log("第5个出现的console：" + num);
+myObject.sub();
+var sub = myObject.sub;//
+sub();
+
+
+//// 虽然bar是obj.foo的一个引用，但是实际上，它引用的是foo函数本身。
+// bar()是一个不带任何修饰的函数调用，应用默认绑定。把this绑定到全局对象或者undefined上。
+var x='我是全局变量'
+var myObject2={
+    x:'局部变量。。。',
+    funx:function(){
+    	console.log(this.x);
+    }
+
+};
+myObject2.funx();
+var funy=myObject2.funx;
+funy();
+
+
+var a=9;
+
+var obj3={
+	a:8,
+	print_a:function(){
+     (function(){
+        (function(){
+        console.log("自执行函数的this："+this);
+       })();
+     })();
+	console.log("函数的this："+this);
+},
+
+};
+obj3.print_a();
+
+
+</script>
+</html>

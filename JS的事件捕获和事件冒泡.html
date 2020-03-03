@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JS的事件捕获和事件冒泡</title>
+
+
+
+<style>
+
+ 
+
+</style>
+
+
+<script>
+
+
+</script>
+</head>
+<body>
+<div id="parent">父母
+　　<div id="child" class="child" >孩子</div>
+</div>
+
+<div id="One" onclick="alert('最外层')">
+   <div id="two" onclick="alert('中间层')">
+       <a id="three" href="http://baidu.com" onclick="alert('里面')">点击我</a>
+	</div>
+</div>
+
+
+</body>
+
+<script>
+
+function foo(x) {
+    var tmp = 3;
+    return function (y) {
+    	console.log(x)
+        console.log(x + y + (++tmp));
+    }//返回一个函数
+}
+var bar = foo(2); // bar 现在是一个闭包
+bar(10);
+bar(10);
+</script>
+</html>

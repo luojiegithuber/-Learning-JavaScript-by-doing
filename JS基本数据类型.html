@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JS的基本数据类型</title>
+
+<script>
+
+//JS基本有5种简单数据类型：String，Number，Boolean，Null，undefined。一种复杂的数据类型Object。
+
+
+//1.String
+//字符串可以使用 " "赋值也可以使用' '赋值
+var name1 = '张三';   
+var name2 = "李四";   
+
+//将其他数据类型转换为String类型，可以使用String()和toString()
+//这两个方法的区别是String()可以转任何类型，而toString()方法不能转Null，undefined两种类型。
+
+var str_null=String(null);
+//var str_null=null.toString();  //程序报错
+
+//2.Number
+//将数字开头的字符串中提取数字使用parseInt()和parseFloat()方法。
+//parseInt("10");     //返回 10
+//parseInt("19",10);    //返回 19 (10+9)//后面是进制数
+//parseInt("11",2);   //返回 3 (2+1)
+//parseInt("1f",16);    //返回 31 (16+15)
+
+console.log(parseInt("58qwe"));//输出58
+console.log(parseFloat("58.135qwe"));//输出58.135
+console.log(typeof("asd"+123));//数字+字符串=字符串
+
+//3.Boolean
+//将其他数据类型转换为Boolean类型使用Boolean()方法。
+//Number的值为0返回false其他的返回为true。字符串只赋值为""返回为false其他返回为true
+console.log(Boolean(123));//true
+console.log(Boolean(0));//false
+console.log(Boolean("123"));//true
+console.log(Boolean(""));//false
+
+
+//4.Null
+//Null类型是第二个只有一个值的数据类型，这个特殊的值是null，从逻辑角度来看，null值表示一个**空对象指针**，而这也正是使用typeof操作符检测null值会返回“object”的原因。
+
+//5.undefined
+//当声明的变量还未被初始化时，变量的默认值为undefined。
+var a;
+console.log(typeof(a));//undefined
+
+
+//ES6 引入了一种新的原始数据类型Symbol，表示独一无二的值。它是 JavaScript 语言的第七种数据类型，前六种是：undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）。
+//
+
+let s1 = Symbol('foo');
+let s2 = Symbol('bar');
+console.log(s1);//Symbol(foo)
+//如果 Symbol 的参数是一个对象，就会调用该对象的toString方法，将其转为字符串，然后才生成一个 Symbol 值。
+
+//
+function Person(){
+
+}
+
+var p1=new Person();
+console.log(p1 instanceof Person);//true
+
+
+Person.prototype.name = 'Kevin';
+console.log(p1.name);// 'Kevin'
+var p2=p1;
+console.log(p2.name);//kevin
+
+p1.name="luojie";
+console.log(p1.name);//luojie
+console.log(p2.name);//luojie
+console.log(Person.prototype.name);//kevin
+
+console.log(p1.constructor);//Person
+var arr_test=new Array();
+console.log(arr_test.constructor==Array);//true
+
+</script>
+
+<style>
+
+ 
+
+</style>
+</head>
+<body>
+  <div>
+  </div>
+
+</body>
+</html>

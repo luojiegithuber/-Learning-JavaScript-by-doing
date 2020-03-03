@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JS原型和原型链</title>
+
+
+<style>
+
+ 
+
+</style>
+</head>
+<body>
+
+</body>
+
+<script>
+
+//定义数据集
+
+var map = new Map()
+var result = []
+
+//初始化数据
+function init_map(){
+map.set("2",['a','b','c'])
+map.set("3",['d','e','f'])
+map.set("4",['g','h','i'])
+map.set("5",['j','k','l'])
+map.set("6",['m','n','o'])
+map.set("7",['p','q','r','s'])
+map.set("8",['t','u','v'])
+map.set("9",['w','x','y','z'])
+}
+
+//数字——>字符数组
+function getArray(num){
+	return map.get(num)
+}
+
+//定义树节点
+function Node(data){
+	this.data=data
+	this.parent=null
+	this.childrens =[]
+	this.str = ''
+
+	//根据号码添加childrens
+	this.add = function(num){
+
+        let arr = getArray(num)//根据号码获得数组
+
+		for(let index in arr){
+		let node =new Node(arr[index])//建立需要添加的新节点
+		node.str = this.str+arr[index]
+		this.childrens.push(node)//加入孩子组合
+
+	  }
+	}
+}
+
+//定义树,初始化最初节点
+function Tree(data){
+	let node = new Node(data)
+	this._root = node
+}
+
+
+
+
+//递归建树,传入的是孩子组和去头的字符数组
+function createTree(childrens,str_arr){
+     if(str_arr.length!=0){
+
+     	
+        for(let i in childrens){
+
+     	childrens[i].add(str_arr[0])//孩子添加了孩子组合
+
+     	createTree(childrens[i].childrens,str_arr.slice(1))
+     }
+
+     }else{
+
+     	//叶子结点
+       for(let i in childrens){
+
+     	result.push(childrens[i].str)
+
+     }
+     	
+     }
+     
+}
+
+
+
+function main(str){
+  init_map()//初始化数据
+  let tree = new Tree("#") //初始化树
+  str_arr=str.split("")//传入的字符串变成字符数组
+  //console.log(str_arr)
+  tree._root.add(str_arr[0])
+  createTree(tree._root.childrens,str_arr.slice(1))
+  //console.log(tree)
+  console.log(result)
+}
+
+main("")
+
+
+
+
+
+
+
+
+</script>
+</html>

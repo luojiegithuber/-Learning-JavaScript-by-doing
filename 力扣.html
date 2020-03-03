@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Promise,Generator函数，async函数区别与理解</title>
+
+</head>
+<body>
+
+</body>
+<script>
+ function ListNode(val) {
+    this.val = val;
+    this.next = null;
+ }
+
+
+var removeNthFromEnd = function(head, n) {
+     //双指针
+     let temp=head
+     let tail=head
+     //拉开距离
+     for(let i=0;i<=n;i++){
+        tail=tail.next
+     }
+
+     //同时往右边移动,直到tail为null
+     while(tail){
+     tail=tail.next
+     temp=temp.next
+    }
+
+    //此时此刻,temp.next就是击杀目标
+    temp.next=temp.next.next
+
+    return head
+};
+
+</script>
+</html>
