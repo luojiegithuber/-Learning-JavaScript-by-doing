@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>懒加载的实现+防抖&&节流</title>
+
+</head>
+<body>
+
+<div class='img_contain'>
+   <img src='' data_src="https://s2.ax1x.com/2020/03/05/377BmF.jpg"></img>
+   <img src='' data_src="https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1376961488,1031444180&fm=15&gp=0.jpg"></img>
+   <img src='' data_src="https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=113433683,1933264682&fm=115&gp=0.jpg"></img>
+   <img src='' data_src="https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1101145971,543724001&fm=26&gp=0.jpg"></img>
+   <img src='' data_src="https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3483947814,3895323439&fm=26&gp=0.jpg"></img>
+   <img src='' data_src="https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2802838371,3372877731&fm=26&gp=0.jpg"></img>
+   <img src='' data_src="https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3767600124,3043988252&fm=26&gp=0.jpg"></img>
+   <img src='' data_src="https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3167522177,3510959007&fm=26&gp=0.jpg"></img>
+   <img src='' data_src="https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=4029017510,3812280218&fm=26&gp=0.jpg"></img>
+   <img src='' data_src="https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1014351345,765809171&fm=26&gp=0.jpg"></img>
+</div>
+
+</body>
+
+<style>
+
+div img{
+  display:block
+}
+</style>
+<script>
+
+const imgs = document.querySelectorAll('img');//得到全部的图片
+
+const contain = document.querySelector('.img_contain')//获得父元素
+
+const viewHeight = window.innerHeight//可视区域高度
+
+const load=lazyload()
+
+load()//首屏渲染
+
+function lazyload(){
+    //运用闭包count进行计数，避免已经显示的图片重复参与循环
+    let count=0;
+    return ()=>{
+        for(let i=count;i<imgs.length;i++){
+            //getBoundingClientRect()获取返回元素的大小及其相对于视口的位置
+            //获取第i张图片是否在可视区域
+            let distance = viewHeight - imgs[i].getBoundingClientRect().top
+            if(distance>=0){
+                //图片在可视区域时设置图片的src为data_src
+                console.log(imgs[i])
+                imgs[i].src=imgs[i].getAttribute('data_src')
+                //图片已经显示，下次从count+1开始检查是否在可视区域
+                count++
+            }
+        }
+    }
+}
+
+//添加滚动事件触发加载
+//window.onscroll = load
+window.onscroll = debounce(load, 1000)//最多每一秒触发一次
+
+
+function debounce(fn, time) {
+            let oldTime = 0,
+                timer = null;
+
+            return () => {
+
+                const nowTime = new Date()
+                
+                if (nowTime - oldTime < time) {
+                    if (timer) {
+                        clearTimeout(timer)
+                        //clearTimeout() 方法可取消由 setTimeout() 方法设置的 timeout。
+                    }
+                    timer = setTimeout(() => {
+                        oldTime = nowTime
+                        fn()
+                    }, time);
+                } else {
+                    // 用户重复触发，到达事件节点 还是会去执行事件 
+                    oldTime = nowTime
+                    fn()
+                }
+            }
+}
+
+
+</script>
+</html>

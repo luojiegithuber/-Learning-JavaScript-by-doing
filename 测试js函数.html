@@ -54,7 +54,25 @@ console.log(Sun2.prototype instanceof Father)//true
 //不用instanceof判断子类是否是父类的子类
 console.log(Sun2.prototype.constructor==Father)//true
 
+//自己实现instanceof
+function my_instanceof(obj,class_fun){
+	const SP=class_fun.prototype//构造函数原型
 
+	while(true){
+	
+	//一定要严格比较
+	if(obj==null)return false
+	
+	if(obj==SP)return true
+    
+    obj=obj.__proto__// 沿着原型链重新赋值
+    }
+
+}
+console.log('+++++++++++++++')
+console.log( my_instanceof(sun2,Father) )//true
+console.log( my_instanceof(sun2,Sun2) )//true
+console.log( my_instanceof(Sun2.prototype,Father) )//true
 console.log('+++++++++++++++')
 
 
