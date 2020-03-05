@@ -10,32 +10,42 @@
 
 </body>
 <script>
- function ListNode(val) {
-    this.val = val;
-    this.next = null;
- }
+var isValid = function(s) {
+    let map=new Map()
 
+    map.set('(',0)
+    map.set('[',1)
+    map.set('{',2)
 
-var removeNthFromEnd = function(head, n) {
-     //双指针
-     let temp=head
-     let tail=head
-     //拉开距离
-     for(let i=0;i<=n;i++){
-        tail=tail.next
-     }
+    map.set(')',0)
+    map.set(']',1)
+    map.set('}',2)
 
-     //同时往右边移动,直到tail为null
-     while(tail){
-     tail=tail.next
-     temp=temp.next
+    let s_arr=s.split('')
+    let stack=[]
+    for(let i=0;i<s.length;i++){
+        if(s_arr[i]=='('||s_arr[i]=='['||s_arr[i]=='{'){
+            //如果是左闭合，入栈
+            stack.push(s_arr[i])
+        }else{
+            //如果是右闭合
+            if(map.get(s_arr[i])!=map.get(stack[stack.length-1])){
+                //判断不一致
+                return false
+            }else{
+                //完整闭合，出栈
+                stack.pop()
+            }
+        }
     }
 
-    //此时此刻,temp.next就是击杀目标
-    temp.next=temp.next.next
-
-    return head
+    if(stack.length==0)return true
+    else return false
 };
 
+console.log(isValid("()[]{}"))
+console.log(isValid("([)]"))
+console.log(isValid("{[]}"))
+console.log(isValid("()"))
 </script>
 </html>

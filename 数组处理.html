@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>数组扁平化 and 二分查找</title>
+
+</head>
+<body>
+
+<div>
+
+</body>
+<script>
+ arr=[1, [2, [3, [4, 5]]], 6]
+ //利用数组迭代方法，forEach和reduce不行
+ //map好处是能返回新数组
+ console.log(arr.toString().split(',').map(value=>
+         Number(value)
+ ))
+var count=0
+
+var binary_search=function(arr,low,high,key){
+  if(low>high)return -1//没找到
+
+  let mid=parseInt((low+high)/2)
+  if(arr[mid]==key){
+    count++
+    return mid
+  }else if(arr[mid]>key){//目标在左边
+    high=mid-1
+    count++
+    return binary_search(arr,low,high,key)
+  }else if(arr[mid]<key){//目标在右边
+    low=mid+1
+    count++
+    return binary_search(arr,low,high,key)
+  }
+}
+
+var arr2 = [1,2,3,4,5,6,7,8,9,10,11,23,44,86];
+var result = binary_search(arr2, 0, 13, 10);
+console.log(count); // 9 返回目标元素的索引值 
+
+</script>
+</html>

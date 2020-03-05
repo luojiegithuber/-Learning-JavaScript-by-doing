@@ -23,16 +23,6 @@
 <script>
 var ul = document.querySelector("ul");
 
-/*ul.onclick = function(e){
-    var e = e || window.event;
-    console.log(e)//鼠标点击就是mouseEvent
-    var target = e.target || e.srcElement;
-    console.log(target)//标签位置
-    if(target.nodeName.toLowerCase() === "li"){
-        alert("li");
-    }
-}*/
-
 ul.addEventListener('click',function(e){
     var e = e || window.event;//鼠标点击事件
     var target = e.target || e.srcElement//点到的标签
@@ -44,5 +34,8 @@ ul.addEventListener('click',function(e){
     console.log("下标是："+index)
     console.log("内容是："+target.innerHTML)
  })
+
+
+
 </script>
 </html>
