@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>call和apply的机制</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+
+var name = "window小白";
+var obj = {
+    name: "obj小红"
+};
+
+function sayName(x=888) {
+    return this.name+x;
+}
+
+console.log(sayName.call(this));   //小白
+console.log(sayName.call(obj,2));    //小红
+
+</script>
+</html>

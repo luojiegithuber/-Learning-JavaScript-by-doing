@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>bind的机制</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+
+
+var foo = function(){}
+var fooBind = foo.bind()
+
+console.log(foo === fooBind) // false
+
+/*--------------------------------------*/
+
+var foo = function(){}
+var fooBind = foo.bind()
+
+var bar = function(callback1,callback2){
+    console.log(callback1 === callback2)  //false
+}
+
+bar(foo,fooBind)
+
+/*上面的代码中的 foo.bind()的返回值是一个新的函数，其实是将foo拷贝了一份，他们两个已经没有了任何关系，也就是说foo和fooBind已经不在同一个内存地址中了，所以返回了false。*/
+
+var foo = function(){console.log("罗杰帅气")}
+var fooBind1 = foo.bind()
+var fooBind2 = foo.bind()
+
+console.log(fooBind1 === fooBind2) //false
+fooBind1()//罗杰帅气
+fooBind2()//罗杰帅气
+
+
+//虽然上面的fooBind1和fooBind2都使用了foo.bind()进行了拷贝，但他们也并没有任何关系，完全两个独立的函数。
+
+//bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。
+var obj = {key:"value"}
+var foo = function(){
+    return this;
+}
+var fooBind1 = foo.bind(obj)
+var fooBind2 = foo.bind(obj)
+
+console.log(  fooBind1() === fooBind2 ()   )    //true   他们都指向了同一个obj
+console.log(  fooBind1 === fooBind2         )    //false     他们分别是存在两个不同内存地址中的，与函数中的this无关，所以返回了fals
+
+
+//让foo中的this指向obj，foo已经不是foo本身了，而是调用了bind之后返回的一个新的函数
+var obj = {key:"value"}
+var foo = function(){
+    console.log(this)    
+}
+
+foo.bind(obj)()//obj         
+
+//帮助理解bind用法的例子
+this.x = 9    
+var obj = {
+  x: 81,
+  getX: function() { console.log(this.x); }
+}
+
+obj.getX()  //81
+
+var obj1 = obj.getX //非严格模式下一般函数的this值window
+obj1()  //9
+obj1.bind(obj)() //81  重新绑定了this
+
+
+//自己手动实现bind
+Function.prototype.myBind = function () {
+        var self = this;   // 保存原函数
+        console.log("【bind:外层类数组参数】")
+        console.log(arguments)
+
+        context = [].shift.call(arguments);// 保存需要绑定的this上下文,取bind函数的第一个参数
+
+        args = [].slice.call(arguments);    // 剩余的参数转为数组
+        return function () {                    // 返回一个新函数
+            console.log("【bind:内层类数组参数】")
+            console.log(arguments)
+            self.apply(context,[].concat.call(args, [].slice.call(arguments)));
+        }
+    }
+
+function f(y, z){
+    console.log( this.x + y + z);
+}
+var m =f.myBind({x:1},20,30)
+m()//51
+
+
+
+</script>
+</html>

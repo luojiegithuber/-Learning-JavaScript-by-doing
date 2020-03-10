@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>事件委托</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+function func(y, z){
+    console.log( this.x);//这个函数没有x属性，咱们得另外绑定this
+    console.log( y );
+    console.log( z );
+}
+
+var obj={x:1}//一个有x属性的对象
+
+var A =func.bind(obj,2,3)//像call一样的传参方式
+A()//1 2 3
+
+var B =func.bind(obj)//像call一样的传参方式
+B(2,3)//1 2 3
+
+var C =func.bind(obj,2)//像call一样的传参方式
+C(3)//1 2 3
+//你或许会疑问，为什么可以这样中断了一样传参？
+
+</script>
+</html>
