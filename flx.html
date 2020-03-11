@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>判空</title>
+<style>
+
+*{
+	margin:0
+	padding:0
+}
+
+.main{
+	width: 100%;
+	height:500px;
+    display: flex;/*关键*/
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.left{
+	flex:0 1 200px;
+	height: 100%;
+	background:red;
+}
+
+.right{
+	flex:1;
+	height: 100%;
+	background:red;
+}
+
+.middle{
+	flex:3;
+	height: 100%;
+	background:green;
+}
+
+</style>
+
+
+</head>
+<body >
+
+<div class="main">
+  <div class="left"></div>
+  <div class="middle"></div>
+  <div class="right"></div>
+</div>
+</body>
+<script>
+
+
+</script>
+</html>

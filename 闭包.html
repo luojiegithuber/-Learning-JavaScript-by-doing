@@ -33,5 +33,24 @@ function fun(){
 	console.log(arguments)
 }
 fun(1,2,3)
+
+
+var add=function(){
+   var count = 0;
+   return function(){
+   	count++;
+   	console.log("【计数器】："+count)
+   }
+
+}
+add()()
+add()()
+add()()
+
+var b=add()
+b()
+b()
+b()
+
 </script>
 </html>

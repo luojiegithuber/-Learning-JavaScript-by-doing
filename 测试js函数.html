@@ -61,9 +61,9 @@ function my_instanceof(obj,class_fun){
 	while(true){
 	
 	//一定要严格比较
-	if(obj==null)return false
+	if(obj===null)return false
 	
-	if(obj==SP)return true
+	if(obj===SP)return true
     
     obj=obj.__proto__// 沿着原型链重新赋值
     }

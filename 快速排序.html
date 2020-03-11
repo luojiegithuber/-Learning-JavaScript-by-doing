@@ -22,13 +22,12 @@ function quickSort(arr, low, high) {
     let pivot = arr[low];//将第一个数作为基准元素（挖坑）
 
     while(low < high) {
-
       while(arr[high] >= pivot && low < high) {  
       // 从后往前找比基准小的数
         high--;
       }
 
-      //挖坑填坑
+      //填坑
       if(low < high) {
         arr[low] = arr[high];
         low++
@@ -39,6 +38,7 @@ function quickSort(arr, low, high) {
         low++;
       }
 
+      //填坑
       if(low < high) {
         arr[high] = arr[low];
         high--
