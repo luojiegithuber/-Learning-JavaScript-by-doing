@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>...arg</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+//自己手动实现bind
+Function.prototype.myBind = function () {
+
+        var self = this;   // 保存原函数
+
+        console.log("【bind:外层类数组参数】")
+
+        console.log(arguments)
+
+        context = [].shift.call(arguments);// 保存需要绑定的this上下文,取bind函数的第一个参数
+
+        args = [].slice.call(arguments);    // 剩余的参数转为数组
+
+        return function () {                    // 返回一个新函数
+            console.log("【bind:内层类数组参数】")
+            console.log(arguments)
+            self.apply(context,[].concat.call(args, [].slice.call(arguments)));
+        }
+    }
+
+
+
+
+
+Function.prototype.my_bind = function(context, ...res) {
+
+    let self = this//这里this指原函数
+
+    return function(...arg) {
+
+        return self.apply(context, [...res,...arg])
+
+    }
+}
+
+function f(y, z){
+    console.log( this.x + y + z);
+}
+
+var m =f.my_bind({x:1},20)
+m(30)//51
+
+</script>
+</html>

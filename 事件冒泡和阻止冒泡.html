@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>事件冒泡和停止</title>
+
+<style>
+#parent{
+  border: 2px solid black;
+  height:500px;
+  width: 500px;   
+  background-color: green;
+
+  position: relative;
+}
+
+#child{
+  border: 2px solid black;
+  height:250px;
+  width: 250px;   
+  background-color: white;
+  
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+
+}
+
+</style>
+
+</head>
+<body>
+<div id="parent">父母
+　　<div id="child">孩子</div>
+</div>
+
+</body>
+<script>
+document.getElementById("parent").addEventListener("click",function(e){
+    console.log(e)
+    alert("parent事件被触发，"+this.id);
+})
+
+document.getElementById("child").addEventListener("click",function(e){
+	console.log(e)
+    alert("child事件被触发，"+this.id);
+})
+
+</script>
+</html>

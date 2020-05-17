@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>美团笔试</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+var N=8
+
+var X_map=new Map()
+var Y_map=new Map()
+
+var arr_2=new Array()
+
+var countLucky=0
+
+function countLuckyFun(){
+	countLucky=0
+
+    mapStore(0,0)
+    mapStore(0,1)
+    mapStore(0,2)
+    mapStore(0,3)
+    mapStore(1,1)
+    mapStore(1,2)
+    mapStore(-1,1)
+    mapStore(-1,2)
+   
+    for(let i=0;i<N;i++){
+        if(isLucky(arr_2[i][0],arr_2[i][1])){
+        	countLucky++
+        }
+    }
+
+    return countLucky
+
+}
+
+
+
+//存放进去map,初始化，第一次遍历
+function mapStore(x,y){
+
+   arr_2.push([x,y])
+
+   if(!X_map.has(x)){
+   	  let X_arr=[]
+   	  X_arr.push(y)
+      X_map.set(x,X_arr)
+   }else{
+      let X_arr=X_map.get(x)//得到其对应的x坐标下的所有y坐标轴
+      X_arr.push(y)//加入y新成员
+   }
+
+   if(!Y_map.has(y)){
+   	  let Y_arr=[]
+   	  Y_arr.push(x)
+      Y_map.set(y,Y_arr)
+   }else{
+      let Y_arr=Y_map.get(y)//得到其对应的y坐标下的所有x坐标轴
+      Y_arr.push(x)//加入y新成员
+   }
+}
+
+//对每个星星做判断————四个方位都有星星
+function isLucky(x,y){
+   let X_arr=X_map.get(x)
+   let Y_arr=Y_map.get(y)
+   
+   var x_Flag=false
+   var y_Flag=false
+
+   //固定住x，看y满不满足条件
+   y_Flag=bigAndSmall(y,X_arr)
+
+   //固定住y，看x满不满足条件
+   x_Flag=bigAndSmall(x,Y_arr)
+
+   return (x_Flag&&y_Flag)
+}
+
+//传入一个x和一个数组 ，判断在数组中是否同时存在大于和小于x的数字
+function bigAndSmall(x,arr){
+  var bigFlag=false
+  var smallFlag=false
+
+  for(let i=0;i<arr.length;i++){
+  	if(arr[i]>x)bigFlag=true
+  	if(arr[i]<x)smallFlag=true	
+  }
+
+
+  return (bigFlag&&smallFlag)
+}
+
+/*
+arr=[1,2,3,4,5,6]
+str="hello world"
+
+mapStore(1,3)
+mapStore(1,2)
+mapStore(4,2)
+mapStore(3,2)
+console.log(bigAndSmall(1,[1,2,3]))
+console.log(bigAndSmall(4,[1,2,3]))
+console.log(bigAndSmall(5,[1,2,8]))*/
+
+console.log(countLuckyFun())
+</script>
+</html>

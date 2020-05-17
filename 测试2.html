@@ -8,12 +8,20 @@
 </head>
 <body >
 
-<div onclick="fun()">1asd asd22</div>
+
 </body>
 <script>
-
-function fun(){
-	console.log(window.event)
+function getData(){
+   return new Promise(function(resolve,reject){
+       resolve("哈哈")
+   })
 }
+
+getData()
+.then(res=>{return val = "牛逼"},err=>{console.log("错误1")})
+.then(res=>{console.log(res)},err=>{console.log("错误2")})
+getData()
+
+
 </script>
 </html>

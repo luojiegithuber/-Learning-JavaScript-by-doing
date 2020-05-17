@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>模板</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+
+let arr=[1,2,3,4,5]
+let funPrint=print(arr)
+var t=setInterval(funPrint,1000)
+
+function print(arr){
+    let i=0
+    let length=arr.length
+    return function(){
+
+    	console.log(arr[i++])
+
+    	if(i>=length){
+           clearInterval(t)
+    	}
+    }
+}
+
+</script>
+</html>

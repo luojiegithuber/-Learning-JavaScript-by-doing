@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>继承</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+console.log("——————————————————————第一种继承：原型链继承——————————————————————")
+//父类型
+function Person(name){
+   this.name=name
+   this.action=["吃","喝","拉","撒"]
+}
+
+Person.prototype.name="婴儿"
+
+Person.prototype.move=function(){
+	console.log(this.name+"在走路")
+}
+
+//对象原型(__proto__)和构造函数原型对象(prototype)里面都有一个属性constructor，constructor我们称为构造函数，因为它指向的是构造函数本身
+console.log(new Person().constructor===Person)//true
+console.log(new Person().constructor===Person.prototype.constructor)//true
+
+//子类型
+function Worker(name){
+  this.money=1000
+}
+
+//原型链继承
+Worker.prototype=new Person()//父的实例是子的原型
+console.log(Worker.prototype.constructor)//这里会指向父构造函数，所以我们得修正一下，使其指向子构造函数
+Worker.prototype.constructor=Worker
+
+
+//实例化
+var person=new Person("爸爸")
+var w1=new Worker("儿子") 
+
+
+person.move()//爸爸在走路
+w1.move()//undefined在走路，,如果添加this.name=name那有啥继承意义
+
+//实例既是父类的实例，也是子类的实例
+console.log(w1 instanceof Person)//true
+console.log(w1 instanceof Worker)//true
+
+//【缺点】******：
+//①可以方便继承父类型的原型中的方法，但是单纯属性的继承无意义，我想要在这个方法的基础上传参那怎么办？
+//②给子类原型添加或者重写方法的代码一定要放在替换原型的语句Worker.prototype=new Person()之后。
+//③通过原型链实现继承时，不能使用对象字面量创建原型方法，因为这样做就会重写原型链
+//④难以实现多继承，会共享属性比如：
+w2=new Worker()
+console.log(w1.action)//w1只会人类都懂的吃喝拉撒行为
+
+//w2很特别，学到了新技能————飞
+w2.action.push("飞")
+console.log(w2.action)//["吃", "喝", "拉", "撒", "飞"]
+console.log(w1.action)//["吃", "喝", "拉", "撒", "飞"]
+
+//等等为什么w1也会飞了？！
+//
+//——————————————————————第二种继承：借用构造函数——————————————————————
+console.log("——————————————————————第二种继承：借用构造函数——————————————————————")
+//使用父类的构造函数来增强子类实例，等于是复制父类的实例属性给子类（没用到原型）
+
+function Actor(name){
+   Person.call(this,name)
+   this.money=10000
+}
+
+let a1=new Actor("成龙")
+console.log(a1.name)//成龙     //传参成功
+
+
+
+
+   
+
+//【缺点】******：
+//①实例并不是父类的实例，只是子类的实例
+console.log(a1 instanceof Person)//false  
+console.log(a1 instanceof Actor)//true
+
+//②无法使用原型protoyype定义的属性，只能使用构造函数内定义的
+//a1.move()        //Error 
+
+//③无法实现函数复用，每个子类都有父类实例函数的副本，影响性能
+//引用
+
+console.log("——————————————————————第三种继承：组合继承——————————————————————")
+//通过调用父类构造，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用
+
+function Student(name,score){
+  Person.call(this,name)//第一步
+  this.score=score
+}
+
+//第二步
+Student.prototype=new Person()
+Student.prototype.constructor=Student
+
+Student.prototype.showScore=function(){console.log(this.name+"考试得分："+this.score)}
+
+var s1=new Student("罗杰",100)
+s1.move()//罗杰在走路
+s1.showScore()//罗杰考试得分：100
+
+var s2=new Student("杰罗",99)
+s2.action.push("打游戏")
+
+console.log(s2.action)//["吃", "喝", "拉", "撒", "打游戏"]
+console.log(s1.action)//["吃", "喝", "拉", "撒"]
+
+
+</script>
+</html>

@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>引用直接赋值</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+
+var arr = [1,2,3]
+var b_arr=arr
+b_arr.push(8)
+console.log(arr)
+console.log(b_arr)
+
+var a={x:1,y:{z:7}}
+var x=a.x
+var y=a.y
+
+a.x=3
+console.log(a.x)//3
+console.log(x)//1
+x=5
+console.log(a.x)//3
+console.log(x)//5
+//互不相干？？
+
+
+y=9
+console.log(a.y)//9
+console.log(y)//9
+//相互联系的
+
+</script>
+</html>

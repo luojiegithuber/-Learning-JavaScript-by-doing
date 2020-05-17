@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>规范化货币</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+
+function money(n){
+	var result=''
+    
+    var n_Str=String(n)
+   
+    var fuFlag=false
+
+    if(isFu(n)){
+    	//如果是负数，先剃头
+    	n_Str=n_Str.split('')
+    	n_Str.shift()
+    	n_Str=n_Str.join('')
+    	fuFlag=true //为之后的加括号执行做准备
+    }
+
+/**********************************************/
+	//优先判断是不是小数
+	if(isFloat(n)){
+
+      let float_numer_arr=n_Str.split('.')
+      let int_part=float_numer_arr[0]
+      let float_part=float_numer_arr[1]
+
+      int_part=intPartHandle(int_part)
+      float_part=FloatPartHandle(float_part)
+
+
+      result=int_part+'.'+float_part
+
+
+	}else{
+      //若不是小数
+      result=intPartHandle(n_Str)
+      result=result+'.00'
+
+	}
+    
+    result=result.split('')
+	result.unshift('$')
+
+	if(fuFlag){
+		result.unshift('(')
+		result.push(')')
+	}
+
+
+	return  result.join('')
+
+}
+//(正)整数处理部分
+function intPartHandle(n_str){
+   let result=[] 
+   let arr=n_str.split('')
+   let count=0
+   
+   let length=arr.length
+   for(let i=0;i<length;i++){
+       
+       result.unshift(arr.pop())
+       count++
+
+       if((count%3==0)&&(i!=length-1)){
+       	  count=0
+       	  result.unshift(',')
+       }
+   }
+
+   return result.join('')
+}
+
+//小数处理部分
+function FloatPartHandle(n_str){
+   let result=[] 
+   let arr=n_str.split('')
+   let length=arr.length
+   if(length==1){
+   	  result.push(arr[0])
+   	  result.push('0')
+   	  return result.join('')
+   }else {
+   	  result.push(arr[0])
+   	  result.push(arr[1])
+   	  return result.join('')
+   }
+
+}
+
+
+//是不是小数
+function isFloat(n){
+	let strNumer=String(n).split('.')
+    if (strNumer.length==1){
+    	return false
+    }else{
+    	return true
+    }
+}
+
+//是不是负数
+function isFu(n){
+	let strNumerHead=String(n)[0]
+    if (strNumerHead!='-'){
+    	return false
+    }else{
+    	return true
+    }
+}
+
+console.log(money(203323))
+console.log(money(0.0))
+console.log(money(0.0000000))
+console.log(money(0.009212121))
+console.log(money(343444323.32432))
+console.log(money(-12344.1))
+console.log(money(-12345678.9))
+
+</script>
+</html>

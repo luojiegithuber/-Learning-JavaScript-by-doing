@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>腾讯前端笔试</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+
+console.log(void(0))//undefined 函数默认返回
+console.log(Number(undefined))//NaN
+console.log(null*4.5)//0
+
+var m=-13
+console.log(m.toString(2))
+console.log(13>>2)
+console.log(-13>>2)
+console.log(1-'2')//-1
+document.onkeydown = function(event){  
+event = event?event:window.event;  
+if (event.keyCode == 13) {  //回车是13哦
+alert("“hello world!”");  
+}  
+};  
+</script>
+</html>

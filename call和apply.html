@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>call和apply的机制</title>
+<title>call和apply和bind</title>
 
 </head>
 <body>
@@ -12,17 +12,33 @@
 </body>
 <script>
 
-var name = "window小白";
-var obj = {
-    name: "obj小红"
-};
-
-function sayName(x=888) {
-    return this.name+x;
+var a = {
+    name:"A",
+    jump:function(){console.log(this.name+"跳起来了")},
+    show:function(where,what){
+        console.log(this.name+'在'+where+what)
+    }
 }
 
-console.log(sayName.call(this));   //小白
-console.log(sayName.call(obj,2));    //小红
+a.jump()//A跳起来了
+a.show("实验室","写代码")//A在实验室写代码
+
+var b={
+    name:'B',
+}
+
+console.log("———————————call———————————")
+a.jump.call(b)
+a.show.call(b,"家里","玩游戏")
+
+console.log("———————————apply———————————")
+a.jump.apply(b)
+a.show.apply(b,["家里","玩游戏"])
+
+console.log("———————————bind———————————")
+a.jump.bind(b)()
+a.show.bind(b,"家里")("玩游戏")
+
 
 </script>
 </html>

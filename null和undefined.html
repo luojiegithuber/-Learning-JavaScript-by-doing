@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>new做了什么事情</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+function Person(name){
+	this.name=name
+}
+
+function newP(){
+   var person = new Object()
+   person.__proto__=String.prototype
+   let result=String.call(person,"罗杰")
+   
+
+   if (typeof(result) == "object"){
+   	console.log(result)
+     return result;
+   }
+   else{
+   	console.log(person)
+     return person;
+   }    
+
+}
+
+let p=newP()
+console.log(p.constructor)
+
+</script>
+</html>

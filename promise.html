@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Promise,Generator函数，async函数区别与理解</title>
+
+</head>
+<body>
+
+</body>
+<script>
+
+
+//promise.all()当所有的子Promise都完成，该Promise完成，返回值是全部值得数组有任何一个失败，该Promise失败，返回值是第一个失败的子Promise结果
+
+//切菜
+  function cutUp(){
+        console.log('开始切菜。');
+
+        var p = new Promise(function(resolve, reject){        //做一些异步操作
+            setTimeout(function(){
+                console.log('切菜完毕！');
+                resolve('切好的菜');
+            }, 1000);
+        });
+
+        return p;
+    }
+
+    //烧水
+    function boil(){
+        console.log('开始烧水。');
+
+        var p = new Promise(function(resolve, reject){        //做一些异步操作
+            setTimeout(function(){
+                console.log('烧水完毕！');
+                reject('烧焦的水')
+            }, 1000);
+        });
+
+        return p;
+    }
+
+    /*Promise.all([cutUp(), boil()])
+        .then(
+        	(result) => {
+                console.log('准备工作完毕');
+                console.log(result);},
+            (err) => {
+            	console.log('准备工作失败,原因是：');
+            	console.log(err);
+            }
+        )*/
+
+    /*Promise.race([cutUp(), boil()])
+        .then(
+        	(result) => {
+                console.log('准备工作完毕');
+                console.log(result);},
+            (err) => {
+            	console.log('准备工作失败,原因是：');
+            	console.log(err);
+            }
+        )
+*/
+const promises = [ cutUp(), boil() ];
+const results =Promise.allSettled(promises);
+results.then((res)=>{res.forEach(val=>{console.log(val.status)})})
+
+
+
+  //Promise.race() 类似于Promise.all() ，区别在于它有任意一个完成就算完成     
+  //*************************************************
+  //ES6 新引入了 Generator 函数，可以通过 yield 关键字，把函数的执行流挂起，为改变执行流程提供了可能，从而为异步编程提供解决方案。
+
+
+</script>
+</html>

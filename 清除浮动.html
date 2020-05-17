@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>清除浮动</title>
+
+<style>
+.container{
+   /*height: 100px;*/
+   width:500px;
+   border: 1px solid black;
+   overflow: auto;
+}
+
+.sun{
+   height: 500px;
+   width:100px;
+   background: red;
+   border: 1px solid black;
+   text-align: center;
+   float:right;
+}
+
+.sun_little{
+   height: 400px;
+   width:100px;
+   background: blue;
+   border: 1px solid black;
+   text-align: center;
+   float:right;
+}
+
+.container::after{
+/*假装添加了一个清除浮动的div的感觉*/
+        content: "";
+        display: block;
+        height: 0;
+        clear:both;
+        visibility: hidden;
+
+}
+
+.container{zoom:1;}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+	<div class="sun">我是大儿子</div>
+	<div class="sun_little">我是小儿子</div>
+
+</div>
+
+</body>
+<script>
+
+
+
+</script>
+</html>

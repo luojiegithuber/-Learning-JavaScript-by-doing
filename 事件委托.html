@@ -16,6 +16,7 @@
         <li>4</li>
         <li>5</li>
         <li>6</li>
+        <div>我是div</div>
     </ul>
 </div>
 
@@ -26,7 +27,7 @@ var ul = document.querySelector("ul");
 ul.addEventListener('click',function(e){
     var e = e || window.event;//鼠标点击事件
     var target = e.target || e.srcElement//点到的标签
-
+    //target表示在事件冒泡中触发事件的源元素，在IE中是srcElement  
     var li_arr=this.querySelectorAll("li")//this指的是ul
     console.log(li_arr)
     var index=Array.prototype.indexOf.call(li_arr,target)

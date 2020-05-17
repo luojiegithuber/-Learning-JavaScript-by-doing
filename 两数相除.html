@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>两数相除</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+
+function divided(a,b){
+  if(a==undefined){console.log("被除数为空"); return false}
+  if(b==undefined){console.log("除数为空") ;  return false}
+
+  if(isNaN(a)){console.log("被除数不是数字"); return false}  
+  if(isNaN(b)){console.log("除数不是数字") ;  return false} 
+  if(b==0){console.log("除数不能为0") ;return false}
+
+  console.log(a/b)
+  return true
+}
+
+
+divided(21,7)
+divided(0,12)
+divided(10,3)
+divided(8,10)
+divided(1,8)
+
+divided(1,0)
+divided(1,'h')
+divided(1)
+
+</script>
+</html>

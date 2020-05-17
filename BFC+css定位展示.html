@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>模板</title>
+
+<style>
+
+.container div{
+height: 400px;
+width:800px;
+border: 2px solid black;
+/*position: relative;*/
+background: #00CED1
+}
+
+.relative div{
+height:100px;
+width:100px;
+border: 2px solid blue;
+background:white;
+}
+
+.absolute div{
+height:100px;
+width:100px;
+border: 2px solid red;
+background:white;
+}
+
+.fixed div{
+height:100px;
+width:100px;
+border: 2px solid green;
+background:white;
+}
+
+.one{
+    position: relative;
+    top:50px;
+    left:80px;
+}
+
+.two{
+    position: absolute;
+    top:50px;
+    left:80px;
+}
+
+.three{
+    position: absolute;
+    top:50px;
+    left:80px;
+}
+
+
+</style>
+
+</head>
+<body>
+<div class="container">
+
+<div class="absolute">
+	<div >1</div>
+	<div class="two">2</div>
+	<div >3</div>
+</div>
+
+<div class="relative">
+	<div >1</div>
+	<div class="one">2</div>
+	<div >3</div>
+</div>
+
+
+
+<div class="fixed">
+	<div >1</div>
+	<div class="three">2</div>
+	<div >3</div>
+</div>
+
+</div>
+</body>
+
+</html>

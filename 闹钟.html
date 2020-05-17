@@ -1,0 +1,309 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>时间</title>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+</head>
+
+<body>
+    <div id="main" style="width:300;height:300;position:absolute;top:10%;left:20%;"></div>
+
+    <script type="text/javascript">
+        var ldata = [{}];
+        var myChart = echarts.init(document.getElementById('main'));
+        function roundDatas(num) {
+            var datas = [];
+            for (var i = 0; i < num; i++) {
+                var x = Math.cos(30 * i * Math.PI / 180);
+                var y = Math.sin(30 * i * Math.PI / 180);
+                datas.push({
+                    name: i,
+                    x: y,
+                    y: -x
+                });
+            }
+            return datas;
+        }
+
+
+        function roundDatas1(num) {
+            var datas = [];
+            for (var i = 0; i < num; i++) {
+                var x = Math.cos(6 * i * Math.PI / 180);
+                var y = Math.sin(6 * i * Math.PI / 180);
+                datas.push({
+                    name: i,
+                    x: y,
+                    y: -x
+                });
+            }
+            return datas;
+        }
+
+    
+
+        option = {
+            series: [
+
+                {
+                    name: '时',
+                    type: 'graph',
+                    draggable: true,
+                    itemStyle: {
+                        normal: {
+                            color: '#694d9f'
+                        }
+                    },
+
+                    symbol: 'circle',
+                    symbolSize: 8,
+                    top: '40%',
+                    left: '40%',
+                    width: '30%',
+                    height: '30%',
+                    data: roundDatas(12),
+                    links: ldata
+                },
+
+                {
+                    name: '分',
+                    type: 'graph',
+                    itemStyle: {
+                        normal: {
+                            color: '#2585a6'
+                        }
+                    },
+
+                    symbol: 'circle',
+                    symbolSize: 5,
+                    top: '30%',
+                    left: '30%',
+                    width: '50%',
+                    height: '50%',
+                    data: roundDatas1(60),
+                    links: ldata
+                }, {
+                    name: '秒',
+                    type: 'graph',
+                    itemStyle: {
+                        normal: {
+                            color: '#f173ac'
+                        }
+                    },
+
+                    symbol: 'circle',
+                    symbolSize: 3,
+                    top: '20%',
+                    left: '20%',
+                    width: '70%',
+                    height: '70%',
+                    data: roundDatas1(60),
+                    links: ldata
+                },
+
+
+            ]
+        };
+
+
+        function start() {
+            myChart.setOption(option);
+            var dt = new Date();
+            var h = dt.getHours();
+            var m = dt.getMinutes();
+            var s = dt.getSeconds();
+
+            if(h==8){console.log('更新所有的数据！')}
+
+            var xs = Math.cos(6 * s * Math.PI / 180);
+            var ys = Math.sin(6 * s * Math.PI / 180);
+            var xm = Math.cos(6 * m * Math.PI / 180);
+            var ym = Math.sin(6 * m * Math.PI / 180);
+
+            var xh = Math.cos(30 * h * Math.PI / 180);
+            var yh = Math.sin(30 * h * Math.PI / 180);
+
+
+            for (var j = 0; j < s; j++) {
+                var x1 = Math.cos(6 * j * Math.PI / 180);
+                var y1 = Math.sin(6 * j * Math.PI / 180);
+                option.series[2].data[j] = {
+                    name: j,
+                    symbolSize: 3,
+                    x: y1,
+                    y: -x1
+                };
+            }
+            for (var j = 59; j > s; j--) {
+                var x1 = Math.cos(6 * j * Math.PI / 180);
+                var y1 = Math.sin(6 * j * Math.PI / 180);
+                option.series[2].data[j] = {
+                    name: j,
+                    symbolSize: 3,
+                    x: y1,
+                    y: -x1
+                };
+            }
+            //秒
+
+
+            for (var j = 0; j < m; j++) {
+                var x1 = Math.cos(6 * j * Math.PI / 180);
+                var y1 = Math.sin(6 * j * Math.PI / 180);
+                option.series[1].data[j] = {
+                    name: j,
+                    symbolSize: 5,
+                    x: y1,
+                    y: -x1
+                };
+            }
+            for (var j = 59; j > m; j--) {
+                var x1 = Math.cos(6 * j * Math.PI / 180);
+                var y1 = Math.sin(6 * j * Math.PI / 180);
+                option.series[1].data[j] = {
+                    name: j,
+                    symbolSize: 5,
+                    x: y1,
+                    y: -x1
+                };
+            } //分
+
+
+            for (var j = 0; j < h; j++) {
+                var x1 = Math.cos(30 * j * Math.PI / 180);
+                var y1 = Math.sin(30 * j * Math.PI / 180);
+                option.series[0].data[j] = {
+                    name: j,
+                    symbolSize: 8,
+                    x: y1,
+                    y: -x1
+                };
+            }
+            for (var j = 24; j > h; j--) {
+                var x1 = Math.cos(30 * j * Math.PI / 180);
+                var y1 = Math.sin(30 * j * Math.PI / 180);
+                option.series[0].data[j] = {
+                    name: j,
+                    symbolSize: 8,
+                    x: y1,
+                    y: -x1
+                };
+            } //时
+
+
+            /////////////////////////////////////////////////////////////
+
+            option.series[2].data[s] = {
+                name: s,
+                symbolSize: 20,
+                x: ys,
+                y: -xs,
+                itemStyle: {
+                    normal: {
+                        color: '#f173ac'
+                    }
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        formatter: '{b}',
+
+                    }
+                }
+            };
+            if (s == 0) {
+                option.series[2].data[0] = {
+                    name: '0',
+                    symbolSize: 20,
+                    x: ys,
+                    y: -xs,
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: '0',
+
+                        }
+                    }
+                }
+            }; //秒
+
+            option.series[1].data[m] = {
+                name: m,
+                symbolSize: 25,
+                x: ym,
+                y: -xm,
+                itemStyle: {
+                    normal: {
+                        color: '#2585a6'
+                    }
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        formatter: '{b}',
+
+                    }
+                }
+            };
+            if (m == 0) {
+                option.series[1].data[0] = {
+                    name: '0',
+                    symbolSize: 25,
+                    x: ym,
+                    y: -xm,
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: '0',
+
+                        }
+                    }
+                }
+            } //分
+
+            option.series[0].data[h] = {
+                name: h,
+                symbolSize: 30,
+                x: yh,
+                y: -xh,
+                itemStyle: {
+                    normal: {
+                        color: '#694d9f'
+                    }
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        formatter: '{b}',
+
+                    }
+                }
+            };
+            if (h == 0) {
+                option.series[0].data[0] = {
+                    name: '0',
+                    symbolSize: 30,
+                    x: yh,
+                    y: -xh,
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: '0',
+
+                        }
+                    }
+                }
+            } //时
+
+
+
+            setTimeout(start, 1000);
+
+        }
+
+        start();
+    </script>
+</body>
+
+</html>

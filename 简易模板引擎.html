@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>学而思网校</title>
+
+</head>
+<body>
+
+</body>
+<script>
+
+var a="<div class={%data.className%}>{%data.name%}</div>"
+var b={"data":{"name":123,"className":"hd"}}
+
+function tpl (template, data){
+
+ 
+
+}
+
+var str="6/8+2*(3+4)"
+console.log([...str])
+
+function handle(arr){
+  
+  let flag=false;
+  let parentheses = [] //括号内部
+  let temp=[] //保存分裂的数字和符号
+  let result=[] //结果
+
+  for(var i in arr){
+    if(!isNaN(Number(arr[i]))){//如果是数字
+       if(flag){//如果是括号状态
+          parentheses.push(arr[i])
+       }else{
+         temp.push(arr[i])
+       }
+       
+    }else if(arr[i]=='*'||arr[i]=='/'){
+       if(flag){//如果是括号状态
+          parentheses.push(arr[i])
+       }else{
+         temp.push(arr[i])
+       }
+       
+    }else if(arr[i]=='+'||arr[i]=='-'){
+       if(flag){//如果是括号状态
+          parentheses.push(arr[i])
+       }else{
+          result.push(temp.join('')+arr[i])
+          temp=[] //清空
+       }
+
+    }else if(arr[i]=='('){
+       flag=true
+    }else if(arr[i]==')'){
+       let parenthesesResult=''
+       let tempJoin=temp.join('')
+
+       console.log(tempJoin)
+
+       flag=false
+       //对括号内部下手
+       parentheses=fenkai(parentheses) //10 + 11
+
+       for(var j in parentheses){
+          if(isOdd(j)){//如果是奇数,就是符号
+            parenthesesResult=parenthesesResult+parentheses[j]
+          }else{//数字
+            parenthesesResult=parenthesesResult+tempJoin+parentheses[j]
+          }
+
+       }//for
+       
+       temp=[]
+       temp.push(parenthesesResult)
+
+       if(i==(arr.length-1)){
+         result.push(temp.join(''))
+       }
+
+       //清洗括号内部
+       parentheses = []
+    }
+
+    
+
+   
+  }//for
+
+  return result.join('')
+
+}
+
+function fenkai(arr){//括号内部的数字和符号分开
+  let result=[] 
+  let number=[]
+
+  for(var i in arr){
+
+     if(!isNaN(Number(arr[i]))){
+        number.push(arr[i])
+     }else{
+        result.push(number.join(''))
+        result.push(arr[i])
+        number=[]
+     }
+
+     if(i==(arr.length-1)){
+        result.push(number.join(''))
+     }
+
+  }
+  return result
+}
+
+function isOdd(num){
+   if(num%2==0||num==0)return false
+   return true
+}
+
+console.log(handle([...str]))
+
+
+</script>
+</html>

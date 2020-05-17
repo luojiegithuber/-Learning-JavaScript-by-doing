@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>队列操作</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+
+function Queue(){
+	this.top=null
+	this.tail=null
+	this.size=0
+    
+    this.push=function(data){
+        let newNode = new Node(data)
+        if(this.tail==null&&this.top==null){
+        	this.top=newNode
+        	this.tail=newNode
+        }else{
+        	this.tail.next=newNode
+            this.tail=newNode
+        }
+
+        this.size++
+    }
+
+    this.getTop=function(){
+    	if(this.top==null){
+            console.log(-1)
+    	}else{
+    		console.log(this.top.data)
+    	}
+    	
+    }
+
+    this.pop=function(){
+    	
+    	if(this.top==null){
+    		console.log(-1)
+    	}else{
+    		this.top=this.top.next
+    		this.size--
+    		if(this.size==0){
+    			this.tail=null
+    		}
+    	}
+    	
+    }
+
+    this.clear=function(){
+    	this.top=null
+	    this.tail=null
+	    this.size=0
+    }
+}
+
+function Node(data){
+	this.data=data;
+	this.next=null
+}
+
+
+
+function switchHandle(handle,data,queue){
+   switch (handle) {
+    case "PUSH":
+        queue.push(data);
+        break;
+    case "TOP":
+        queue.getTop();
+         break;
+    case "POP":
+        queue.pop();
+         break;
+    case "SIZE":
+        console.log(queue.size);
+         break;
+    case "CLEAR":
+        queue.clear();
+         break;
+
+} 
+}
+
+main2()
+function main2(){
+   var queue=new Queue()
+   switchHandle("PUSH",1,queue)
+   switchHandle("PUSH",2,queue)
+   switchHandle("PUSH",3,queue)
+   switchHandle("SIZE",undefined,queue)
+   switchHandle("POP",undefined,queue)
+   switchHandle("SIZE",undefined,queue)
+   switchHandle("TOP",undefined,queue)
+   switchHandle("POP",undefined,queue)
+   switchHandle("POP",undefined,queue)
+   switchHandle("TOP",undefined,queue)
+   switchHandle("SIZE",undefined,queue)
+   console.log(queue)
+   console.log("新时代")
+   
+   switchHandle("PUSH",4,queue)
+   switchHandle("TOP",undefined,queue)
+
+
+}
+
+</script>
+</html>

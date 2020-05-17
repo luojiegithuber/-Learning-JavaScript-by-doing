@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>js函数玩玩</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+
+//判断一个字符串中出现次数最多的字符，统计这个次数
+function countLetter(str){
+   var json={}//{a:10,b:12}之类的，懂了吧
+
+   for(let i=0;i<str.length;i++){
+   	if(!json[str.charAt(i)]){
+        json[str.charAt(i)]=1
+   	}else{
+   		json[str.charAt(i)]++
+   	}
+   }//for
+
+   var max=0
+   var maxLetter=''
+
+   for(var i in json){
+
+       if(json[i]>max){
+       	  max=json[i]
+       	  maxLetter=i
+       }
+   }//for
+
+   console.log("出现最多的字母是"+maxLetter+"，次数是"+max)
+
+}
+
+countLetter("stakjdsfkjasfhfhhhkjshdfhhhashdashdlkashhhh")
+
+//字符串去重
+//只要函数名字call，不要加（)
+function newStr(str){
+	return Array.prototype.filter.call(str,function(val,index,arr){
+        return index==arr.indexOf(val)
+	})
+}
+console.log(newStr("sddasdflkjjjja"))
+
+
+
+function b () {
+
+console.log(a);//打印函数
+
+var a = 10;
+
+//var a=function(){}; 会使第一个结果变成undefined
+function a() {};
+
+a = 100;
+
+console.log(a);//100
+
+}
+
+b();
+
+var a = function (val, index) {
+    console.log(index);
+    return {
+        fn: function (name) {
+            return a(name, val);
+        }
+    }
+}
+
+var b = a(0); // underfined
+b.fn(1); // 0
+b.fn(2); // 0
+b.fn(3); // 0
+
+</script>
+</html>

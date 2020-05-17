@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>硬币动态规划</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+/*动态规划解决问题，主要找出两样东西：
+  1.“状态” dp[i] : 组成价值i所需要的最少的硬币的数量
+  2.状态转移方程
+* dp[i] : 组成价值i所需要的最少的硬币的数量   —>   状态
+* dp[0] = 0
+* dp[1] = 1 + dp[1-1] = 1 + dp[0] = 1
+* dp[2] = 1 + dp[2-1] = 1 + dp[1] = 2
+* dp[3]:
+*   1 + dp[3-1] = 1 + 2 = 3
+*   1 + dp[3-3] = 1 + 0 = 1
+* .......
+* dp[i] = min{1+dp[i-1], 1+dp[i-3v], 1+dp[i-5]}
+* dp[i] = min{1 + dp[i-v[j]]}  i >= v[j] i表示要组成的价值，vj表示第j个硬币的面
+*/
+
+
+function minCoins(val){
+	let dp=new Array(val+1)
+	dp[0]=0
+
+	for(let i=1;i<val+1;i++){
+       dp[i]=1+min(dp,i)
+	}
+	console.log(dp)
+
+	return dp[val]
+
+}
+
+function min(dp,i){
+	let min=0
+	if(i>1){
+		min=dp[i-1]
+		if(i>3){
+			min=dp[i-3]<min?dp[i-3]:min
+			   if(i>5){
+			   	   min=dp[i-5]<min?dp[i-5]:min
+			   }
+		}
+	}
+
+	return min
+
+}
+
+
+console.log(minCoins(11))//3
+
+</script>
+</html>

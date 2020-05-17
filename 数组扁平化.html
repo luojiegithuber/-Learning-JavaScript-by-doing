@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>数组扁平化的5种方法</title>
+
+</head>
+<body>
+
+
+</body>
+<script>
+
+ arr=[1, [2, [3, [4, 5]]], 6]
+
+ //第一种 曲线救国
+ //调用数组的toString方法，将数组变为字符串然后再用split分割还原为数组，因为split分割后形成的数组的每一项值为字符串，所以需要用一个map方法遍历数组将其每一项转换为数值型
+ function flatten1(arr){
+     return arr.toString().split(',').map(value=>
+         Number(value)
+     )
+ }
+//tips：和上面的toString一样，join(',')也可以将数组转换为字符串
+
+//第二种 递归轰炸
+//遍历数组每一项，若值为数组则递归遍历，否则concat
+//尤其记住最后那个initialValue是[],和1并起来
+//利用Array.isArray()判断是否是数组
+//return的会变成下一次的pre
+function flatten2(arr){
+	return arr.reduce((previousValue ,currentValue)=>{
+		return previousValue.concat(Array.isArray(currentValue )?flatten2(currentValue ):currentValue )
+	},[])
+}
+
+console.log(flatten2(arr))
+
+//reduce 为数组中的每一个元素依次执行回调函数，不包括数组中被删除或从未被赋值的元素，接受四个参数：初始值（或者上一次回调函数的返回值），当前元素值，当前索引，调用 reduce 的数组。
+//用法：arr.reduce(callback,[initialValue])
+/*
+callback （执行数组中每个值的函数，包含四个参数）
+
+   1、previousValue （上一次调用回调返回的值，或者是提供的初始值（initialValue））
+   2、currentValue （数组中当前被处理的元素）
+   3、index （当前元素在数组中的索引）
+   4、array （调用 reduce 的数组）
+
+initialValue （作为第一次调用 callback 的第一个参数。）*/
+
+
+//累加器
+arr2=[1,2,3,4,5]
+var sum=arr2.reduce((pre,cur)=>pre+cur)
+console.log(sum)
+
+//直接调用
+console.log(arr.flat(Infinity))
+</script>
+</html>

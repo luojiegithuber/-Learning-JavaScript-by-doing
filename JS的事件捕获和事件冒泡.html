@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>JS的事件捕获和事件冒泡</title>
+<title>阻止事件冒泡和默认行为</title>
 
 
 
@@ -33,16 +33,14 @@
 </body>
 
 <script>
+function stop(){
+				document.getElementById("three").addEventListener("click",function(event){
+					event=event||window.event;
+					event.stopPropagation()||(event.cancelBubble=true);//阻止事件冒泡
+					event.preventDefault();//阻止a默认事件
+				});
+			}
+			stop();
 
-function foo(x) {
-    var tmp = 3;
-    return function (y) {
-    	console.log(x)
-        console.log(x + y + (++tmp));
-    }//返回一个函数
-}
-var bar = foo(2); // bar 现在是一个闭包
-bar(10);
-bar(10);
 </script>
 </html>
